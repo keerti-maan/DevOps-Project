@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhubaccount')
+  }
     stages{
         stage('Keerti - Build Docker Image'){
             steps {
@@ -10,9 +13,7 @@ pipeline {
         }
         stage('Keerti - Login to Dockerhub'){
             steps {
-                withCredentials([string(credentialsId: 'dockerhubaccount', variable: 'dockerhubpwd')]){
-                sh 'docker login -u keertimaan -p ${dockerhubpwd}'
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
         stage('Keerti - Push image to Dockerhub'){
