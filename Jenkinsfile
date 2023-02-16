@@ -7,7 +7,7 @@ pipeline {
         stage('Keerti - Build Docker Image'){
             steps {
                 
-                sh 'docker image build -t python-image .'
+                sh 'docker image build -t keertimaan/python-image .'
                 
             }
         }
